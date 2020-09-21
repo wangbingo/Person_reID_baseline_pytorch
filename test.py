@@ -203,7 +203,6 @@ query_path = image_datasets['query'].imgs
 
 gallery_cam,gallery_label = get_id(gallery_path)
 query_cam,query_label = get_id(query_path)
-embed()
 
 if opt.multi:
     mquery_path = image_datasets['multi-query'].imgs
@@ -263,3 +262,4 @@ os.system('python evaluate_gpu.py | tee -a %s'%result)
 if opt.multi:
     result = {'mquery_f':mquery_feature.numpy(),'mquery_label':mquery_label,'mquery_cam':mquery_cam}
     scipy.io.savemat('multi_query.mat',result)
+embed()

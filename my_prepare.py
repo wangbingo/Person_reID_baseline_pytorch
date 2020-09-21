@@ -72,6 +72,8 @@ train_path = download_path
 train_save_path = download_path + '/pytorch/train_all'
 if not os.path.isdir(train_save_path):
     os.mkdir(train_save_path)
+    
+from IPython import embed
 
 file = open(train_path + "/label.txt") 
 c = 0
@@ -84,7 +86,7 @@ while 1:
         break    
 file.close()
 
-from IPython import embed
+
 
 
 for line in lines:

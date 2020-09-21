@@ -1,5 +1,6 @@
 import os
 from shutil import copyfile
+from IPython import embed
 
 # You only need to change this line to your dataset download path
 download_path = '../train'
@@ -73,20 +74,16 @@ train_save_path = download_path + '/pytorch/train_all'
 if not os.path.isdir(train_save_path):
     os.mkdir(train_save_path)
 
-from IPython import embed
-
 file_handle = open(train_path + "/label.txt", "r") 
 lines = file_handle.readlines()
 file_handle.close()
 
 print("There are %d lines in label.txt. Is that 72824?"%len(lines))
 
-embed()
-
-
 for line in lines:
-        pass # do something
-
+    line = line.strip()   # to erase blank at both ends
+    line = line.strip('\n')  # to erase \n 
+    embed()
 
 
 for root, dirs, files in os.walk(train_path, topdown=True):

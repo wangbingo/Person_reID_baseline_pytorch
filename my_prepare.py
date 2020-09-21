@@ -68,7 +68,7 @@ for root, dirs, files in os.walk(gallery_path, topdown=True):
  """
 #---------------------------------------
 #train_all
-train_path = download_path + '/train'
+train_path = download_path
 train_save_path = download_path + '/pytorch/train_all'
 if not os.path.isdir(train_save_path):
     os.mkdir(train_save_path)

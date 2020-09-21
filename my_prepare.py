@@ -76,13 +76,10 @@ if not os.path.isdir(train_save_path):
 from IPython import embed
 
 file_handle = open(train_path + "/label.txt", "r") 
-
 lines = file_handle.readlines()
-
 file_handle.close()
 
-a = len(lines)
-print("There are %d lines in label.txt. Is that 72825?"%a)
+print("There are %d lines in label.txt. Is that 72824?"%len(lines))
 
 embed()
 

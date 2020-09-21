@@ -96,7 +96,10 @@ for line in lines:
         os.mkdir(dst_path)
     copyfile(src_path, dst_path + '/' + img_name)
     c += 1
-print("train_all dataset completed.  %d files copied."%c)
+    if c % 10000 == 0:
+        print('{} files copied.'.format(c)) 
+
+print('train_all dataset completed.  {} files copied.'.format(c))
 
 
 

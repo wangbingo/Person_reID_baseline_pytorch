@@ -72,21 +72,20 @@ train_path = download_path
 train_save_path = download_path + '/pytorch/train_all'
 if not os.path.isdir(train_save_path):
     os.mkdir(train_save_path)
-    
+
 from IPython import embed
 
-file = open(train_path + "/label.txt") 
-c = 0
+file = open(train_path + "/label.txt", "r") 
 while 1:
     lines = file.readlines(100000)
-    c += 1
     if not lines:
-        print("There are %d lines in label.txt. Is that 72825?"%(c-1))
-        embed()
         break    
 file.close()
 
+a = len(lines)
+print("There are %d lines in label.txt. Is that 72825?"%a)
 
+embed()
 
 
 for line in lines:

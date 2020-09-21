@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-from IPython import embed
 from __future__ import print_function, division
+
+from IPython import embed
 
 import argparse
 import torch

@@ -80,6 +80,7 @@ file_handle.close()
 
 print("There are %d lines in label.txt. Is that 72824?"%len(lines))
 
+c = 0
 for line in lines:
     line = line.strip()   # to erase blank
     line = line.strip('\n')  # to erase \n
@@ -90,18 +91,18 @@ for line in lines:
     
     src_path = train_path + '/images/' + img_name
     dst_path = train_save_path + '/' + cls_name
-    embed()
+    
     if not os.path.isdir(dst_path):
         os.mkdir(dst_path)
     copyfile(src_path, dst_path + '/' + img_name)
+    c += 1
+print("train_all dataset completed.  %d files copied."%c)
 
-
-embed()
 
 
 #---------------------------------------
 #train_val
-train_path = download_path + '/bounding_box_train'
+""" train_path = download_path + '/bounding_box_train'
 train_save_path = download_path + '/pytorch/train'
 val_save_path = download_path + '/pytorch/val'
 if not os.path.isdir(train_save_path):
@@ -120,3 +121,4 @@ for root, dirs, files in os.walk(train_path, topdown=True):
             dst_path = val_save_path + '/' + ID[0]  #first image is used as val image
             os.mkdir(dst_path)
         copyfile(src_path, dst_path + '/' + name)
+ """

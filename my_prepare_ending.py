@@ -29,5 +29,5 @@ dir_samples = random.sample(os.listdir(train_save_path), pick_numbers)  #
 for dir in dir_samples:
     shutil.move(train_save_path + '/' + dir, val_save_path + '/' + dir)
 
-print('{} / {} dirs moved.'.format(len(dir_samples), dir_numbers))
+print('{} / {} dirs moved from train to val.'.format(len(dir_samples), dir_numbers))
 print('train/val datasets generated.')

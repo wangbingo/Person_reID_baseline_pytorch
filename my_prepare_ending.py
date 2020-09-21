@@ -29,10 +29,12 @@ val_save_path = download_path + '/pytorch/val'
 os.system('cp -r ../train/pytorch/train_all/* ../train/pytorch/train/')  # tested ok.
  """
 split_rate = 0.1
-
+c = 0
 for root, dirs, files in os.walk(train_save_path, topdown=True):
     for dir in dirs:
         os.mkdir(val_save_path + '/' + dir)
         moveFile(train_save_path + '/' + dir, val_save_path + '/' + dir, split_rate)
-
+        c += 1
+        if c % 2000 == 0:
+            print('{} dirs processed.'.format(c))
 print('train/val  datasets completed.  split rate is {}'.format(split_rate))

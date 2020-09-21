@@ -16,7 +16,7 @@ def moveFile(srcDir, dstDir, rate = 0.1):
     sample = random.sample(pathDir, picknumber)  #随机选取picknumber数量的样本图片
     # print (sample)
     for name in sample:
-            shutil.move(srcDir+name, dstDir+name)
+            shutil.move(srcDir + '/' + name, dstDir + '/' + name)
     return
 
 train_save_path = download_path + '/pytorch/train'

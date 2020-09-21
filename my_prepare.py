@@ -80,11 +80,12 @@ while 1:
     c += 1
     if not lines:
         print("There are %d lines in label.txt. Is that 72825?"%(c-1))
+        embed()
         break    
 file.close()
 
 from IPython import embed
-embed()
+
 
 for line in lines:
         pass # do something

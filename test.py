@@ -262,4 +262,4 @@ os.system('python evaluate_gpu.py | tee -a %s'%result)
 if opt.multi:
     result = {'mquery_f':mquery_feature.numpy(),'mquery_label':mquery_label,'mquery_cam':mquery_cam}
     scipy.io.savemat('multi_query.mat',result)
-embed()
+#embed()

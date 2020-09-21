@@ -27,6 +27,7 @@ if not os.path.isdir(train_save_path):
     os.mkdir(train_save_path)
     os.mkdir(val_save_path)
 
+print('cp train_all train begin........')
 os.system('cp -r ../train/pytorch/train_all/* ../train/pytorch/train/')  # tested ok.
 print('cp train_all train completed........')
 

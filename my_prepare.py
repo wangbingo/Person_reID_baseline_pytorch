@@ -80,32 +80,23 @@ file_handle.close()
 
 print("There are %d lines in label.txt. Is that 72824?"%len(lines))
 
-train_all_list = {}
-
 for line in lines:
-    line = line.strip()   # to erase blank at both ends
+    line = line.strip()   # to erase blank
     line = line.strip('\n')  # to erase \n
     line_list = line.split(':')
-    file_n = line_list[0]
-    classname = line_list[1] 
-    train_all_list[file_n] = classname  
+    
+    img_name  = line_list[0]
+    cls_name = line_list[1] 
+    
+    src_path = train_path + '/images/' + img_name
+    dst_path = train_save_path + '/' + cls_name
+    embed()
+    if not os.path.isdir(dst_path):
+        os.mkdir(dst_path)
+    copyfile(src_path, dst_path + '/' + img_name)
+
 
 embed()
-
-
-
-
-
-for root, dirs, files in os.walk(train_path, topdown=True):
-    for name in files:
-        if not name[-3:]=='jpg':
-            continue
-        ID  = name.split('_')
-        src_path = train_path + '/' + name
-        dst_path = train_save_path + '/' + ID[0]
-        if not os.path.isdir(dst_path):
-            os.mkdir(dst_path)
-        copyfile(src_path, dst_path + '/' + name)
 
 
 #---------------------------------------

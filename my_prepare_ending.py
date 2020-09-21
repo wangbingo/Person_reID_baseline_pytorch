@@ -20,7 +20,8 @@ os.system('cp -r ../train/pytorch/train_all/* ../train/pytorch/train/')  # teste
 
 for root, dirs, files in os.walk(train_save_path, topdown=True):
     for dir in dirs:
-        embed()
+        for file in files:
+            embed()
         """ os.mkdir(val_save_path + '/' + dir)
 
 

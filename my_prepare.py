@@ -78,7 +78,7 @@ file_handle = open(train_path + "/label.txt", "r")
 lines = file_handle.readlines()
 file_handle.close()
 
-print("There are %d lines in label.txt. Is that 72824?"%len(lines))
+print("There are {} lines in label.txt. Is that 72824?".format(len(lines)))
 
 c = 0
 for line in lines:
@@ -105,15 +105,17 @@ print('train_all dataset completed.  {} files copied.'.format(c))
 
 #---------------------------------------
 #train_val
-""" train_path = download_path + '/bounding_box_train'
 train_save_path = download_path + '/pytorch/train'
 val_save_path = download_path + '/pytorch/val'
 if not os.path.isdir(train_save_path):
     os.mkdir(train_save_path)
     os.mkdir(val_save_path)
 
-for root, dirs, files in os.walk(train_path, topdown=True):
-    for name in files:
+os.system('cp -r ../train/pytorch/train_all/* ../train/pytorch/train/')  # tested ok.
+
+for root, dirs, files in os.walk(train_save_path, topdown=True):
+    for dir in dirs:
+        
         if not name[-3:]=='jpg':
             continue
         ID  = name.split('_')
@@ -124,4 +126,3 @@ for root, dirs, files in os.walk(train_path, topdown=True):
             dst_path = val_save_path + '/' + ID[0]  #first image is used as val image
             os.mkdir(dst_path)
         copyfile(src_path, dst_path + '/' + name)
- """

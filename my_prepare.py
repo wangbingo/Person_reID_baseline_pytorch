@@ -73,7 +73,7 @@ train_save_path = download_path + '/pytorch/train_all'
 if not os.path.isdir(train_save_path):
     os.mkdir(train_save_path)
 
-file = open(train_path + "label.txt") 
+file = open(train_path + "/label.txt") 
 c = 0
 while 1:
     lines = file.readlines(100000)

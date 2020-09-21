@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+from IPython import embed
 from __future__ import print_function, division
 
 import argparse
@@ -202,6 +202,7 @@ query_path = image_datasets['query'].imgs
 
 gallery_cam,gallery_label = get_id(gallery_path)
 query_cam,query_label = get_id(query_path)
+embed()
 
 if opt.multi:
     mquery_path = image_datasets['multi-query'].imgs

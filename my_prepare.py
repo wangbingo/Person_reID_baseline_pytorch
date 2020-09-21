@@ -76,10 +76,9 @@ if not os.path.isdir(train_save_path):
 from IPython import embed
 
 file_handle = open(train_path + "/label.txt", "r") 
-while 1:
-    lines = file_handle.readlines()
-    if not lines:
-        break    
+
+lines = file_handle.readlines()
+
 file_handle.close()
 
 a = len(lines)

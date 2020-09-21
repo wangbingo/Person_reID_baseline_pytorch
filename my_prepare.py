@@ -80,10 +80,20 @@ file_handle.close()
 
 print("There are %d lines in label.txt. Is that 72824?"%len(lines))
 
+train_all_list = {}
+
 for line in lines:
     line = line.strip()   # to erase blank at both ends
-    line = line.strip('\n')  # to erase \n 
-    embed()
+    line = line.strip('\n')  # to erase \n
+    line_list = line.split(':')
+    file_n = line_list[0]
+    classname = line_list[1] 
+    train_all_list[file_n] = classname  
+
+embed()
+
+
+
 
 
 for root, dirs, files in os.walk(train_path, topdown=True):

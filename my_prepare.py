@@ -77,7 +77,7 @@ from IPython import embed
 
 file_handle = open(train_path + "/label.txt", "r") 
 while 1:
-    lines = file.readlines()
+    lines = file_handle.readlines()
     if not lines:
         break    
 file_handle.close()

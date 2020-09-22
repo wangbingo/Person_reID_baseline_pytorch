@@ -167,7 +167,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
         # Each epoch has a training and validation phase
         for phase in ['train', 'val']:
             if phase == 'train':
-                scheduler.step()
+                # scheduler.step()  # re-allocate after  optimizer.step()
                 model.train(True)  # Set model to training mode
             else:
                 model.train(False)  # Set model to evaluate mode
@@ -231,6 +231,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
                     else:
                         loss.backward()
                     optimizer.step()
+                    scheduler.step()
 
                 # statistics
                 if int(version[0])>0 or int(version[2]) > 3: # for the new version like 0.4.0, 0.5.0 and 1.0.0
@@ -382,5 +383,5 @@ if fp16:
 criterion = nn.CrossEntropyLoss()
 
 model = train_model(model, criterion, optimizer_ft, exp_lr_scheduler,
-                       num_epochs=30)
+                       num_epochs=25)
 

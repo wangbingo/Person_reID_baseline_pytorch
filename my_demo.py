@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 # Evaluate
 parser = argparse.ArgumentParser(description='Demo')
 parser.add_argument('--query_index', default=777, type=int, help='test_image_index')
-parser.add_argument('--test_dir',default='../Market-1501-v15.09.15/pytorch',type=str, help='./test_data')
+parser.add_argument('--test_dir',default='../train/pytorch',type=str, help='./test_data')
 opts = parser.parse_args()
 
 data_dir = opts.test_dir
@@ -60,7 +60,7 @@ def sort_img(qf, ql, qc, gf, gl, gc):
     index = np.argsort(score)  #from small to large
     index = index[::-1]
     # index = index[0:2000]
-    # good index
+    """ # good index
     query_index = np.argwhere(gl==ql)
     #same camera
     camera_index = np.argwhere(gc==qc)
@@ -71,7 +71,7 @@ def sort_img(qf, ql, qc, gf, gl, gc):
     junk_index = np.append(junk_index2, junk_index1) 
 
     mask = np.in1d(index, junk_index, invert=True)
-    index = index[mask]
+    index = index[mask] """
     return index
 
 i = opts.query_index

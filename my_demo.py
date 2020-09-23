@@ -96,10 +96,8 @@ try: # Visualize Ranking Result
         img_path, _ = image_datasets['gallery'].imgs[index[i]]
         label = gallery_label[index[i]]
         imshow(img_path)
-        if label == query_label:
-            ax.set_title('%d'%(i+1), color='green')
-        else:
-            ax.set_title('%d'%(i+1), color='red')
+        # all green title
+        ax.set_title('%d'%(i+1), color='green')
         print(img_path)
 except RuntimeError:
     for i in range(20):

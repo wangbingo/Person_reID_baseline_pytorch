@@ -83,15 +83,15 @@ index = sort_img(query_feature[i],query_label[i],query_cam[i],gallery_feature,ga
 query_path, _ = image_datasets['query'].imgs[i]
 query_label = query_label[i]
 print(query_path)
-print('Top 20 images are as follow:')
+print('Top 200 images are as follow:')
 try: # Visualize Ranking Result 
     # Graphical User Interface is needed
     fig = plt.figure(figsize=(16,4))
     ax = plt.subplot(1,11,1)
     ax.axis('off')
     imshow(query_path,'query')
-    for i in range(20):
-        ax = plt.subplot(1,21,i+2)
+    for i in range(200):
+        ax = plt.subplot(1,201,i+2)
         ax.axis('off')
         img_path, _ = image_datasets['gallery'].imgs[index[i]]
         label = gallery_label[index[i]]
@@ -100,7 +100,7 @@ try: # Visualize Ranking Result
         ax.set_title('%d'%(i+1), color='green')
         print(img_path)
 except RuntimeError:
-    for i in range(20):
+    for i in range(200):
         img_path = image_datasets.imgs[index[i]]
         print(img_path[0])
     print('If you want to see the visualization of the ranking result, graphical user interface is needed.')

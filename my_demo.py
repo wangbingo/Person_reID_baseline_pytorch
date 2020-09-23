@@ -7,6 +7,7 @@ from torchvision import datasets
 import matplotlib
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
+import json
 #######################################################################
 # Evaluate
 parser = argparse.ArgumentParser(description='Demo')
@@ -60,49 +61,30 @@ def sort_img(qf, ql, qc, gf, gl, gc):
     index = np.argsort(score)  #from small to large
     index = index[::-1]
     # index = index[0:2000]
-    """ # good index
-    query_index = np.argwhere(gl==ql)
-    #same camera
-    camera_index = np.argwhere(gc==qc)
-
-    #good_index = np.setdiff1d(query_index, camera_index, assume_unique=True)
-    junk_index1 = np.argwhere(gl==-1)
-    junk_index2 = np.intersect1d(query_index, camera_index)
-    junk_index = np.append(junk_index2, junk_index1) 
-
-    mask = np.in1d(index, junk_index, invert=True)
-    index = index[mask] """
     return index
 
-i = opts.query_index
-index = sort_img(query_feature[i],query_label[i],query_cam[i],gallery_feature,gallery_label,gallery_cam)
+result_dict = {}
 
-########################################################################
-# Visualize the rank result
+q_index = opts.query_index  # from 1~2900
 
-query_path, _ = image_datasets['query'].imgs[i]
-query_label = query_label[i]
-print(query_path)
-print('Top 200 images are as follow:')
-try: # Visualize Ranking Result 
-    # Graphical User Interface is needed
-    """ fig = plt.figure(figsize=(16,4))
-    ax = plt.subplot(1,11,1)
-    ax.axis('off')
-    imshow(query_path,'query') """
+for i in range(q_index):
+
+    index = sort_img(query_feature[i],query_label[i],query_cam[i],gallery_feature,gallery_label,gallery_cam)
+
+    query_path, _ = image_datasets['query'].imgs[i]
+    #     query_path = '../train/pytorch/query/11/00002570.png'
+    query_path = query_path.split('/')[-1] # get '00002570.png'
+
+    img_path_list = []
     for i in range(200):
-        # ax = plt.subplot(1,201,i+2)
-        # ax.axis('off')
         img_path, _ = image_datasets['gallery'].imgs[index[i]]
-        # label = gallery_label[index[i]]
-        # imshow(img_path)
-        # all green title
-        # ax.set_title('%d'%(i+1), color='green')
-        print(img_path)
-except RuntimeError:
-    for i in range(200):
-        img_path = image_datasets.imgs[index[i]]
-        print(img_path[0])
-    print('If you want to see the visualization of the ranking result, graphical user interface is needed.')
+        # img_path = '../train/pytorch/gallery/99/00108716.png'
+        img_path = img_path.split('/')[-1]       # get '00108716.png'
+        img_path_list.append(img_path)
 
-# fig.savefig("show.png")
+    result_dict[query_path] = img_path_list
+
+
+with open('result.json','w') as fp:
+    # json.dump(result, fp, indent = 4, separators=(',', ': '))
+    json.dump(result_dict, fp)

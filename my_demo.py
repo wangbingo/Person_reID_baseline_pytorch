@@ -83,7 +83,7 @@ index = sort_img(query_feature[i],query_label[i],query_cam[i],gallery_feature,ga
 query_path, _ = image_datasets['query'].imgs[i]
 query_label = query_label[i]
 print(query_path)
-print('Top 10 images are as follow:')
+print('Top 20 images are as follow:')
 try: # Visualize Ranking Result 
     # Graphical User Interface is needed
     fig = plt.figure(figsize=(16,4))
@@ -102,7 +102,7 @@ try: # Visualize Ranking Result
             ax.set_title('%d'%(i+1), color='red')
         print(img_path)
 except RuntimeError:
-    for i in range(10):
+    for i in range(20):
         img_path = image_datasets.imgs[index[i]]
         print(img_path[0])
     print('If you want to see the visualization of the ranking result, graphical user interface is needed.')

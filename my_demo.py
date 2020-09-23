@@ -91,7 +91,7 @@ try: # Visualize Ranking Result
     ax.axis('off')
     imshow(query_path,'query')
     for i in range(20):
-        ax = plt.subplot(1,11,i+2)
+        ax = plt.subplot(1,21,i+2)
         ax.axis('off')
         img_path, _ = image_datasets['gallery'].imgs[index[i]]
         label = gallery_label[index[i]]

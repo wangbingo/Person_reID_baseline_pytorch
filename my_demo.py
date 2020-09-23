@@ -86,18 +86,18 @@ print(query_path)
 print('Top 200 images are as follow:')
 try: # Visualize Ranking Result 
     # Graphical User Interface is needed
-    fig = plt.figure(figsize=(16,4))
+    """ fig = plt.figure(figsize=(16,4))
     ax = plt.subplot(1,11,1)
     ax.axis('off')
-    imshow(query_path,'query')
+    imshow(query_path,'query') """
     for i in range(200):
-        ax = plt.subplot(1,201,i+2)
-        ax.axis('off')
+        # ax = plt.subplot(1,201,i+2)
+        # ax.axis('off')
         img_path, _ = image_datasets['gallery'].imgs[index[i]]
-        label = gallery_label[index[i]]
-        imshow(img_path)
+        # label = gallery_label[index[i]]
+        # imshow(img_path)
         # all green title
-        ax.set_title('%d'%(i+1), color='green')
+        # ax.set_title('%d'%(i+1), color='green')
         print(img_path)
 except RuntimeError:
     for i in range(200):

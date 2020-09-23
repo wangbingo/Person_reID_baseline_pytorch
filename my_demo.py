@@ -86,6 +86,9 @@ for i in range(q_index):
     if i % 100 == 0:
         print('{}/{} processed..........'.format(i, q_index))
 
+import datetime
+nowTime = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
+
 with open('result_' + str(nowTime) + '.json','w') as fp:
     json.dump(result_dict, fp, indent = 4, separators=(',', ': '))
     # json.dump(result_dict, fp)

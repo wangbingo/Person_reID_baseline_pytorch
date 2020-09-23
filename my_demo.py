@@ -88,3 +88,5 @@ for i in range(q_index):
 with open('result.json','w') as fp:
     # json.dump(result, fp, indent = 4, separators=(',', ': '))
     json.dump(result_dict, fp)
+
+print('The result generated................')

@@ -76,17 +76,18 @@ for i in range(q_index):
     query_path = query_path.split('/')[-1] # get '00002570.png'
 
     img_path_list = []
-    for i in range(200):
-        img_path, _ = image_datasets['gallery'].imgs[index[i]]
-        # img_path = '../train/pytorch/gallery/99/00108716.png'
+    for j in range(200):
+        img_path, _ = image_datasets['gallery'].imgs[index[j]]
+        #       img_path = '../train/pytorch/gallery/99/00108716.png'
         img_path = img_path.split('/')[-1]       # get '00108716.png'
         img_path_list.append(img_path)
 
     result_dict[query_path] = img_path_list
+    if i % 100 == 0:
+        print('{}/{} processed..........'.format(i, q_index))
 
-
-with open('result.json','w') as fp:
-    # json.dump(result, fp, indent = 4, separators=(',', ': '))
-    json.dump(result_dict, fp)
+with open('result_' + str(nowTime) + '.json','w') as fp:
+    json.dump(result_dict, fp, indent = 4, separators=(',', ': '))
+    # json.dump(result_dict, fp)
 
 print('The result generated................')

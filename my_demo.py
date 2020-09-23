@@ -84,7 +84,7 @@ for i in range(q_index):
 
     result_dict[query_path] = img_path_list
     if i % 100 == 0:
-        print('{}/{} processed..........'.format(i, q_index))
+        print('{}/{} processed..........'.format(i+1, q_index))
 
 import datetime
 nowTime = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')

@@ -105,4 +105,4 @@ except RuntimeError:
         print(img_path[0])
     print('If you want to see the visualization of the ranking result, graphical user interface is needed.')
 
-fig.savefig("show.png")
+# fig.savefig("show.png")

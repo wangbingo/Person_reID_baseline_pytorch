@@ -199,11 +199,10 @@ g1_g3_distance   = tensor_mm(gallery_feature_1, gallery_feature_3)
 
 final_q_g11_dist = re_ranking(q_g1_distance, q_q_distance, g1_g1_distance, k1=20, k2=6, lambda_value=0.3)
 final_q_g12_dist = re_ranking(q_g1_distance, q_q_distance, g1_g2_distance, k1=20, k2=6, lambda_value=0.3)
-embed()
 final_q_g13_dist = re_ranking(q_g1_distance, q_q_distance, g1_g3_distance, k1=20, k2=6, lambda_value=0.3)
 
 final_q_g1_dist = np.concatenate((final_q_g11_dist, final_q_g12_dist, final_q_g13_dist), axis = 1)
-
+embed()
 
 
 

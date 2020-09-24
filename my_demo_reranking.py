@@ -150,7 +150,7 @@ if multi:
     mquery_feature = mquery_feature.cuda()
 
 query_feature = query_feature.cuda()
-gallery_feature = gallery_feature[0:3000,:].cuda()
+gallery_feature = gallery_feature[0:10000,:].cuda()
 
 #######################################################################
 # sort the images

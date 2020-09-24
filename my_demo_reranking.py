@@ -179,7 +179,7 @@ def tensor_mm(tensor_a, tensor_b):
     # index = index[0:2000]
     return dist_mat
 
-q_q_distance = tensor_mm(query_feature, query_feature).astype(np.float16)
+q_q_distance = (tensor_mm(query_feature, query_feature) * 100.).astype(np.int16)
 embed()
 q_g_distance = tensor_mm(query_feature, gallery_feature).astype(np.float16)
 

@@ -150,7 +150,7 @@ if multi:
     mquery_feature = mquery_feature.cuda()
 
 query_feature = query_feature.cuda()
-N = int(40466 / 3)
+N = int(40466 / 3) + 1
 gallery_feature_1 = gallery_feature[0:N, :].cuda()    # 13500/block is ok
 gallery_feature_2 = gallery_feature[N:2*N, :].cuda()
 

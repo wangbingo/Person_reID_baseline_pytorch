@@ -153,8 +153,14 @@ query_feature = query_feature.cuda()
 N = int(40466 / 3)
 gallery_feature_1 = gallery_feature[0:N, :].cuda()    # 13500/block is ok
 gallery_feature_2 = gallery_feature[N:2*N, :].cuda()
-gallery_feature_3 = gallery_feature[2*N:, :].cuda()
 
+ 
+# padding one row to gf3, make its size = gf1 & gf2 = N
+gallery_feature_3 = gallery_feature[2*N:, :]     
+num_rows, num_cols  = gallery_feature_3.get_shape().as_list()
+pad = torch.zeros([1, num_cols], dtype = torch.float)
+gallery_feature_3 = torch.cat((gallery_feature_3, pad), 0)
+gallery_feature_3 = gallery_feature_3.cuda()
 #######################################################################
 # sort the images
 def sort_img(qf, ql, qc, gf, gl, gc):

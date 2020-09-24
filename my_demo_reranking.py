@@ -190,25 +190,81 @@ def tensor_mm(tensor_a, tensor_b):
 
 q_q_distance   = tensor_mm(query_feature, query_feature)
 
+# cal  final_q_g1_dist
 q_g1_distance    = tensor_mm(query_feature, gallery_feature_1)
 
 g1_g1_distance   = tensor_mm(gallery_feature_1, gallery_feature_1)
 g1_g2_distance   = tensor_mm(gallery_feature_1, gallery_feature_2)
 g1_g3_distance   = tensor_mm(gallery_feature_1, gallery_feature_3)
 
-
 final_q_g11_dist = re_ranking(q_g1_distance, q_q_distance, g1_g1_distance, k1=20, k2=6, lambda_value=0.3)
 final_q_g12_dist = re_ranking(q_g1_distance, q_q_distance, g1_g2_distance, k1=20, k2=6, lambda_value=0.3)
 final_q_g13_dist = re_ranking(q_g1_distance, q_q_distance, g1_g3_distance, k1=20, k2=6, lambda_value=0.3)
 
 final_q_g1_dist = np.concatenate((final_q_g11_dist, final_q_g12_dist, final_q_g13_dist), axis = 1)
+
+# Save to file
+final_q_g1_dist_dict = {'q_g1' : final_q_g1_dist}
+scipy.io.savemat('final_q_g1_dist.mat', final_q_g1_dist_dict)
+#del final_q_g1_dist
+
+
+# cal  final_q_g2_dist
+q_g2_distance    = tensor_mm(query_feature, gallery_feature_2)
+
+g2_g1_distance   = tensor_mm(gallery_feature_2, gallery_feature_1)
+g2_g2_distance   = tensor_mm(gallery_feature_2, gallery_feature_2)
+g2_g3_distance   = tensor_mm(gallery_feature_2, gallery_feature_3)
+
+final_q_g21_dist = re_ranking(q_g2_distance, q_q_distance, g2_g1_distance, k1=20, k2=6, lambda_value=0.3)
+final_q_g22_dist = re_ranking(q_g2_distance, q_q_distance, g2_g2_distance, k1=20, k2=6, lambda_value=0.3)
+final_q_g23_dist = re_ranking(q_g2_distance, q_q_distance, g2_g3_distance, k1=20, k2=6, lambda_value=0.3)
+
+final_q_g1_dist = np.concatenate((final_q_g21_dist, final_q_g22_dist, final_q_g23_dist), axis = 1)
+
+# Save to file
+final_q_g2_dist_dict = {'q_g2' : final_q_g2_dist}
+scipy.io.savemat('final_q_g2_dist.mat', final_q_g2_dist_dict)
+#del final_q_g2_dist
+
+
+
+# cal  final_q_g3_dist
+q_g3_distance    = tensor_mm(query_feature, gallery_feature_3)
+
+g3_g1_distance   = tensor_mm(gallery_feature_3, gallery_feature_1)
+g3_g2_distance   = tensor_mm(gallery_feature_3, gallery_feature_2)
+g3_g3_distance   = tensor_mm(gallery_feature_3, gallery_feature_3)
+
+final_q_g31_dist = re_ranking(q_g3_distance, q_q_distance, g3_g1_distance, k1=20, k2=6, lambda_value=0.3)
+final_q_g32_dist = re_ranking(q_g3_distance, q_q_distance, g3_g2_distance, k1=20, k2=6, lambda_value=0.3)
+final_q_g33_dist = re_ranking(q_g3_distance, q_q_distance, g3_g3_distance, k1=20, k2=6, lambda_value=0.3)
+
+final_q_g3_dist = np.concatenate((final_q_g31_dist, final_q_g32_dist, final_q_g33_dist), axis = 1)
+
+# Save to file
+final_q_g3_dist_dict = {'q_g3' : final_q_g3_dist}
+scipy.io.savemat('final_q_g3_dist.mat', final_q_g3_dist_dict)
+#del final_q_g3_dist
+
+
+# sum
+# final_q_g1_dist = scipy.io.loadmat('final_q_g1_dist.mat')['q_g1']
+# final_q_g2_dist = scipy.io.loadmat('final_q_g2_dist.mat')['q_g2']
+# final_q_g3_dist = scipy.io.loadmat('final_q_g3_dist.mat')['q_g3']
+
+final_q_g_dist = final_q_g1_dist + final_q_g2_dist + final_q_g3_dist
+
+# unpad last  col, make shape = 2900 * (40467-1)
+final_q_g_dist = final_q_g_dist[:,:-1]
+
+# Save to file
+final_q_g_dist_dict = {'q_g3' : final_q_g_dist}
+scipy.io.savemat('final_q_g_dist.mat', final_q_g_dist_dict)
+
 embed()
 
 
-
-
-
-final_q_g_dist = re_ranking(q_g_distance, q_q_distance, g_g_distance, k1=20, k2=6, lambda_value=0.3)
 
 result_dict = {}
 

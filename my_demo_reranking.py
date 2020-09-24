@@ -186,7 +186,6 @@ q_g_distance = tensor_mm(query_feature, gallery_feature)
 g_g_distance = tensor_mm(gallery_feature, gallery_feature)
 
 final_q_g_dist = re_ranking(q_g_distance, q_q_distance, g_g_distance, k1=20, k2=6, lambda_value=0.3)
-embed()
 
 result_dict = {}
 

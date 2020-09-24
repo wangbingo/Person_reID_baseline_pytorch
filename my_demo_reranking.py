@@ -28,7 +28,6 @@ Returns:
   final_dist: re-ranked distance, numpy array, shape [num_query, num_gallery]
 """
 
-
 import numpy as np
 
 def k_reciprocal_neigh( initial_rank, i, k1):
@@ -100,8 +99,6 @@ def re_ranking(q_g_dist, q_q_dist, g_g_dist, k1=20, k2=6, lambda_value=0.3):
     return final_dist
 
 
-
-
 import argparse
 import scipy.io
 import torch
@@ -112,6 +109,8 @@ import matplotlib
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
 import json
+from  IPython import embed
+
 #######################################################################
 # Evaluate
 parser = argparse.ArgumentParser(description='Demo')
@@ -167,13 +166,35 @@ def sort_img(qf, ql, qc, gf, gl, gc):
     # index = index[0:2000]
     return index
 
+# tensor * tensor = distance matrix, numpy array
+def tensor_mm(tensor_a, tensor_b):
+    # query = qf.view(-1,1)
+    # print(query.shape)
+    dist_mat = torch.mm(tensor_a, tensor_b.t())
+    # score = score.squeeze(1).cpu()
+    dist_mat = dist_mat.numpy()
+    # predict index
+    # index = np.argsort(score)  #from small to large
+    # index = index[::-1]
+    # index = index[0:2000]
+    return dist_mat
+
+q_q_distance = tensor_mm(query_feature, query_feature)
+embed()
+q_g_distance = tensor_mm(query_feature, gallery_feature)
+g_g_distance = tensor_mm(gallery_feature, gallery_feature)
+
+final_q_g_dist = re_ranking(q_g_distance, q_q_distance, g_g_distance, k1=20, k2=6, lambda_value=0.3)
+
 result_dict = {}
 
 q_index = opts.query_index  # query total number: 2900
 
 for i in range(q_index):
 
-    index = sort_img(query_feature[i],query_label[i],query_cam[i],gallery_feature,gallery_label,gallery_cam)
+    row_score = final_q_g_dist[i, :]
+    index = np.argsort(row_score)  # from small to large
+    index = index[::-1]            # from large to small
 
     query_path, _ = image_datasets['query'].imgs[i]
     #     query_path = '../train/pytorch/query/11/00002570.png'

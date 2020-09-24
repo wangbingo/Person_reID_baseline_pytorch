@@ -172,7 +172,7 @@ def tensor_mm(tensor_a, tensor_b):
     # print(query.shape)
     dist_mat = torch.mm(tensor_a, tensor_b.t())
     # score = score.squeeze(1).cpu()
-    dist_mat = dist_mat.numpy()
+    dist_mat = dist_mat.cpu().numpy()
     # predict index
     # index = np.argsort(score)  #from small to large
     # index = index[::-1]

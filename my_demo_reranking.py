@@ -206,7 +206,8 @@ final_q_g1_dist = np.concatenate((final_q_g11_dist, final_q_g12_dist, final_q_g1
 # Save to file
 final_q_g1_dist_dict = {'q_g1' : final_q_g1_dist}
 scipy.io.savemat('final_q_g1_dist.mat', final_q_g1_dist_dict)
-#del final_q_g1_dist
+del final_q_g1_dist
+del final_q_g1_dist_dict
 embed()
 
 # cal  final_q_g2_dist

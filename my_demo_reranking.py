@@ -129,7 +129,8 @@ result = scipy.io.loadmat('pytorch_result.mat')
 #query_label = result['query_label'][0]
 
 #gallery_feature = torch.FloatTensor(result['gallery_f'])
-gallery_feature = torch.HalfTensor(result['gallery_f'])
+#gallery_feature = torch.HalfTensor(result['gallery_f'])
+gallery_feature = result['gallery_f'].astype(np.float16)
 
 #gallery_cam = result['gallery_cam'][0]
 #gallery_label = result['gallery_label'][0]
@@ -137,7 +138,7 @@ gallery_feature = torch.HalfTensor(result['gallery_f'])
 #multi = os.path.isfile('multi_query.mat')
 
 #query_feature = query_feature.cuda()
-gallery_feature = gallery_feature.cuda() 
+#gallery_feature = gallery_feature.cuda() 
 
 #######################################################################
 # sort the images
@@ -155,18 +156,11 @@ gallery_feature = gallery_feature.cuda()
 
 # tensor * tensor = distance matrix, numpy array
 def tensor_mm(tensor_a, tensor_b):
-    # query = qf.view(-1,1)
-    # print(query.shape)
+
     dist_mat = torch.mm(tensor_a, tensor_b.t())
-    # score = score.squeeze(1).cpu()
     
-    # dist_mat = dist_mat.numpy()
     dist_mat = dist_mat.cpu().numpy()
     
-    # predict index
-    # index = np.argsort(score)  #from small to large
-    # index = index[::-1]
-    # index = index[0:2000]
     return dist_mat
 
 """ q_q_distance   = tensor_mm(query_feature, query_feature)
@@ -177,7 +171,8 @@ q_g_distance    = tensor_mm(query_feature, gallery_feature)
 #q_g_dist_dict = {'q_g' : q_g_distance}
 #scipy.io.savemat('q_g_dist.mat', q_g_dist_dict) """
 
-g_g_distance   = tensor_mm(gallery_feature, gallery_feature)
+#g_g_distance   = tensor_mm(gallery_feature, gallery_feature)
+g_g_distance   = np.matmul(gallery_feature, np.transpose(gallery_feature))
 g_g_dist_dict = {'g_g' : g_g_distance}
 scipy.io.savemat('g_g_dist.mat', g_g_dist_dict)
 

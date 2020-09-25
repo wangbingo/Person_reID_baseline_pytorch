@@ -179,17 +179,17 @@ def tensor_mm(tensor_a, tensor_b):
     # index = index[0:2000]
     return dist_mat
 
-q_q_distance   = tensor_mm(query_feature, query_feature)
+""" q_q_distance   = tensor_mm(query_feature, query_feature)
 q_q_dist_dict = {'q_q' : q_q_distance}
 scipy.io.savemat('q_q_dist.mat', q_q_dist_dict)
-
+ """
 """ q_g_distance    = tensor_mm(query_feature, gallery_feature)
 q_g_dist_dict = {'q_g' : q_g_distance}
 scipy.io.savemat('q_g_dist.mat', q_g_dist_dict) """
 
-""" g_g_distance   = tensor_mm(gallery_feature, gallery_feature)
+g_g_distance   = tensor_mm(gallery_feature, gallery_feature)
 g_g_dist_dict = {'g_g' : g_g_distance}
-scipy.io.savemat('g_g_dist.mat', g_g_dist_dict) """
+scipy.io.savemat('g_g_dist.mat', g_g_dist_dict)
 
 sys.exit()
 

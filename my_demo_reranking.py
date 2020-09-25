@@ -207,7 +207,7 @@ final_q_g1_dist = np.concatenate((final_q_g11_dist, final_q_g12_dist, final_q_g1
 final_q_g1_dist_dict = {'q_g1' : final_q_g1_dist}
 scipy.io.savemat('final_q_g1_dist.mat', final_q_g1_dist_dict)
 #del final_q_g1_dist
-
+embed()
 
 # cal  final_q_g2_dist
 q_g2_distance    = tensor_mm(query_feature, gallery_feature_2)
@@ -228,7 +228,6 @@ scipy.io.savemat('final_q_g2_dist.mat', final_q_g2_dist_dict)
 #del final_q_g2_dist
 
 
-
 # cal  final_q_g3_dist
 q_g3_distance    = tensor_mm(query_feature, gallery_feature_3)
 
@@ -247,7 +246,6 @@ final_q_g3_dist_dict = {'q_g3' : final_q_g3_dist}
 scipy.io.savemat('final_q_g3_dist.mat', final_q_g3_dist_dict)
 #del final_q_g3_dist
 
-
 # sum
 # final_q_g1_dist = scipy.io.loadmat('final_q_g1_dist.mat')['q_g1']
 # final_q_g2_dist = scipy.io.loadmat('final_q_g2_dist.mat')['q_g2']
@@ -262,9 +260,7 @@ final_q_g_dist = final_q_g_dist[:,:-1]
 final_q_g_dist_dict = {'q_g3' : final_q_g_dist}
 scipy.io.savemat('final_q_g_dist.mat', final_q_g_dist_dict)
 
-embed()
-
-
+# embed()
 
 result_dict = {}
 

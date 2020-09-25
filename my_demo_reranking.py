@@ -105,9 +105,9 @@ import torch
 # import numpy as np
 import os, sys
 from torchvision import datasets
-import matplotlib
-matplotlib.use('agg')
-import matplotlib.pyplot as plt
+#import matplotlib
+#matplotlib.use('agg')
+#import matplotlib.pyplot as plt
 import json
 from  IPython import embed
 
@@ -123,38 +123,38 @@ image_datasets = {x: datasets.ImageFolder( os.path.join(data_dir,x) ) for x in [
 
 #####################################################################
 #Show result
-def imshow(path, title=None):
-    """Imshow for Tensor."""
+""" def imshow(path, title=None):
+    #Imshow for Tensor.
     im = plt.imread(path)
     plt.imshow(im)
     if title is not None:
         plt.title(title)
-    plt.pause(0.001)  # pause a bit so that plots are updated
+    plt.pause(0.001)  # pause a bit so that plots are updated """
 
 ######################################################################
 result = scipy.io.loadmat('pytorch_result.mat')
-query_feature = torch.FloatTensor(result['query_f'])
-query_cam = result['query_cam'][0]
-query_label = result['query_label'][0]
+#query_feature = torch.FloatTensor(result['query_f'])
+#query_cam = result['query_cam'][0]
+#query_label = result['query_label'][0]
 gallery_feature = torch.FloatTensor(result['gallery_f'])
-gallery_cam = result['gallery_cam'][0]
-gallery_label = result['gallery_label'][0]
+#gallery_cam = result['gallery_cam'][0]
+#gallery_label = result['gallery_label'][0]
 
-multi = os.path.isfile('multi_query.mat')
+#multi = os.path.isfile('multi_query.mat')
 
-if multi:
+""" if multi:
     m_result = scipy.io.loadmat('multi_query.mat')
     mquery_feature = torch.FloatTensor(m_result['mquery_f'])
     mquery_cam = m_result['mquery_cam'][0]
     mquery_label = m_result['mquery_label'][0]
-    mquery_feature = mquery_feature.cuda()
+    mquery_feature = mquery_feature.cuda() """
 
 #query_feature = query_feature.cuda()
 gallery_feature = gallery_feature.cuda() 
 
 #######################################################################
 # sort the images
-def sort_img(qf, ql, qc, gf, gl, gc):
+""" def sort_img(qf, ql, qc, gf, gl, gc):
     query = qf.view(-1,1)
     # print(query.shape)
     score = torch.mm(gf,query)
@@ -164,7 +164,7 @@ def sort_img(qf, ql, qc, gf, gl, gc):
     index = np.argsort(score)  #from small to large
     index = index[::-1]
     # index = index[0:2000]
-    return index
+    return index """
 
 # tensor * tensor = distance matrix, numpy array
 def tensor_mm(tensor_a, tensor_b):

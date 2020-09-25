@@ -263,7 +263,7 @@ final_q_g_dist = final_q_g_dist[:,:-1]
 final_q_g_dist_dict = {'q_g' : final_q_g_dist}
 scipy.io.savemat('final_q_g_dist.mat', final_q_g_dist_dict) """
 
-final_q_g3_dist = scipy.io.loadmat('final_q_g_dist.mat')['q_g']
+final_q_g_dist = scipy.io.loadmat('final_q_g_dist.mat')['q_g']
 
 result_dict = {}
 

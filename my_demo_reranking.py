@@ -121,36 +121,23 @@ opts = parser.parse_args()
 data_dir = opts.test_dir
 image_datasets = {x: datasets.ImageFolder( os.path.join(data_dir,x) ) for x in ['gallery','query']}
 
-#####################################################################
-#Show result
-""" def imshow(path, title=None):
-    #Imshow for Tensor.
-    im = plt.imread(path)
-    plt.imshow(im)
-    if title is not None:
-        plt.title(title)
-    plt.pause(0.001)  # pause a bit so that plots are updated """
 
 ######################################################################
 result = scipy.io.loadmat('pytorch_result.mat')
 #query_feature = torch.FloatTensor(result['query_f'])
 #query_cam = result['query_cam'][0]
 #query_label = result['query_label'][0]
-gallery_feature = torch.FloatTensor(result['gallery_f'])
+
+#gallery_feature = torch.FloatTensor(result['gallery_f'])
+gallery_feature = torch.HalfTensor(result['gallery_f'])
+
 #gallery_cam = result['gallery_cam'][0]
 #gallery_label = result['gallery_label'][0]
 
 #multi = os.path.isfile('multi_query.mat')
 
-""" if multi:
-    m_result = scipy.io.loadmat('multi_query.mat')
-    mquery_feature = torch.FloatTensor(m_result['mquery_f'])
-    mquery_cam = m_result['mquery_cam'][0]
-    mquery_label = m_result['mquery_label'][0]
-    mquery_feature = mquery_feature.cuda() """
-
 #query_feature = query_feature.cuda()
-#gallery_feature = gallery_feature.cuda() 
+gallery_feature = gallery_feature.cuda() 
 
 #######################################################################
 # sort the images
@@ -173,9 +160,8 @@ def tensor_mm(tensor_a, tensor_b):
     dist_mat = torch.mm(tensor_a, tensor_b.t())
     # score = score.squeeze(1).cpu()
     
-    
-    dist_mat = dist_mat.numpy()
-    #dist_mat = dist_mat.cpu().numpy()
+    # dist_mat = dist_mat.numpy()
+    dist_mat = dist_mat.cpu().numpy()
     
     # predict index
     # index = np.argsort(score)  #from small to large

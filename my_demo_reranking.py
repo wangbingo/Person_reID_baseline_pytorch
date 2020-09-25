@@ -151,7 +151,7 @@ if multi:
 
 query_feature = query_feature.cuda()
 
-gallery_feature = gallery_feature[:15000,:]    # only  rerank  0-2999
+gallery_feature = gallery_feature[15000:30000,:]    # only  rerank  0-2999
 gallery_feature = gallery_feature.cuda() 
 
 #######################################################################
@@ -197,7 +197,7 @@ final_q_g_dist = re_ranking(q_g_distance, q_q_distance, g_g_distance, k1=20, k2=
 
 # Save to file
 final_q_g_dist_dict = {'final_q_g' : final_q_g_dist}
-scipy.io.savemat('final_q_g_dist.mat', final_q_g_dist_dict)
+scipy.io.savemat('final_q_g_dist_2.mat', final_q_g_dist_dict)
 
 print('finish.............')
 embed()

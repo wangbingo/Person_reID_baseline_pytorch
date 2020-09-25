@@ -151,7 +151,7 @@ if multi:
 
 query_feature = query_feature.cuda()
 
-gallery_feature = gallery_feature[:13489,:]    # only  rerank  0-2999
+gallery_feature = gallery_feature[:15000,:]    # only  rerank  0-2999
 gallery_feature = gallery_feature.cuda() 
 
 #######################################################################

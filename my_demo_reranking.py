@@ -187,9 +187,9 @@ q_g_distance    = tensor_mm(query_feature, gallery_feature)
 q_g_dist_dict = {'q_g' : q_g_distance}
 scipy.io.savemat('q_g_dist.mat', q_g_dist_dict)
 
-g_g_distance   = tensor_mm(gallery_feature, gallery_feature)
+""" g_g_distance   = tensor_mm(gallery_feature, gallery_feature)
 g_g_dist_dict = {'g_g' : g_g_distance}
-scipy.io.savemat('g_g_dist.mat', g_g_dist_dict)
+scipy.io.savemat('g_g_dist.mat', g_g_dist_dict) """
 
 sys.exit()
 

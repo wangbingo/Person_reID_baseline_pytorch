@@ -132,7 +132,7 @@ def imshow(path, title=None):
     plt.pause(0.001)  # pause a bit so that plots are updated
 
 ######################################################################
-""" result = scipy.io.loadmat('pytorch_result.mat')
+result = scipy.io.loadmat('pytorch_result.mat')
 query_feature = torch.FloatTensor(result['query_f'])
 query_cam = result['query_cam'][0]
 query_label = result['query_label'][0]
@@ -149,10 +149,7 @@ if multi:
     mquery_label = m_result['mquery_label'][0]
     mquery_feature = mquery_feature.cuda()
 
-query_feature = query_feature.cuda()
-
-N = 13489
-gallery_feature = gallery_feature[2*N:,:]    # only  rerank  one part
+#query_feature = query_feature.cuda()
 gallery_feature = gallery_feature.cuda() 
 
 #######################################################################
@@ -182,17 +179,19 @@ def tensor_mm(tensor_a, tensor_b):
     # index = index[0:2000]
     return dist_mat
 
-q_q_distance   = tensor_mm(query_feature, query_feature)
+""" q_q_distance   = tensor_mm(query_feature, query_feature)
 #q_q_dist_dict = {'q_q' : q_q_distance}
 #scipy.io.savemat('q_q_dist.mat', q_q_dist_dict)
 
 q_g_distance    = tensor_mm(query_feature, gallery_feature)
 #q_g_dist_dict = {'q_g' : q_g_distance}
-#scipy.io.savemat('q_g_dist.mat', q_g_dist_dict)
+#scipy.io.savemat('q_g_dist.mat', q_g_dist_dict) """
 
 g_g_distance   = tensor_mm(gallery_feature, gallery_feature)
-#g_g_dist_dict = {'g_g' : g_g_distance}
-#scipy.io.savemat('g_g_dist.mat', g_g_dist_dict)
+g_g_dist_dict = {'g_g' : g_g_distance}
+scipy.io.savemat('g_g_dist.mat', g_g_dist_dict)
+
+embed()
 
 final_q_g_dist = re_ranking(q_g_distance, q_q_distance, g_g_distance, k1=20, k2=6, lambda_value=0.3)
 
@@ -200,7 +199,7 @@ final_q_g_dist = re_ranking(q_g_distance, q_q_distance, g_g_distance, k1=20, k2=
 final_q_g_dist_dict = {'final_q_g' : final_q_g_dist}
 scipy.io.savemat('final_q_g_dist_3.mat', final_q_g_dist_dict)
 
-sys.exit() """
+#sys.exit()
 
 final_q_g_dist_1 = scipy.io.loadmat('final_q_g_dist_1.mat')['final_q_g']
 final_q_g_dist_2 = scipy.io.loadmat('final_q_g_dist_2.mat')['final_q_g']

@@ -150,6 +150,8 @@ if multi:
     mquery_feature = mquery_feature.cuda()
 
 query_feature = query_feature.cuda()
+
+gallery_feature = gallery_feature[:3000,:]    # only  rerank  0-2999
 gallery_feature = gallery_feature.cuda() 
 
 #######################################################################
@@ -179,51 +181,28 @@ def tensor_mm(tensor_a, tensor_b):
     # index = index[0:2000]
     return dist_mat
 
-""" q_q_distance   = tensor_mm(query_feature, query_feature)
+q_q_distance   = tensor_mm(query_feature, query_feature)
 q_q_dist_dict = {'q_q' : q_q_distance}
 scipy.io.savemat('q_q_dist.mat', q_q_dist_dict)
- """
-""" q_g_distance    = tensor_mm(query_feature, gallery_feature)
+
+q_g_distance    = tensor_mm(query_feature, gallery_feature)
 q_g_dist_dict = {'q_g' : q_g_distance}
-scipy.io.savemat('q_g_dist.mat', q_g_dist_dict) """
+scipy.io.savemat('q_g_dist.mat', q_g_dist_dict)
 
 g_g_distance   = tensor_mm(gallery_feature, gallery_feature)
 g_g_dist_dict = {'g_g' : g_g_distance}
 scipy.io.savemat('g_g_dist.mat', g_g_dist_dict)
 
-sys.exit()
-
-
-#final_q_g31_dist = re_ranking(q_g3_distance, q_q_distance, g3_g1_distance, k1=20, k2=6, lambda_value=0.3)
-#final_q_g32_dist = re_ranking(q_g3_distance, q_q_distance, g3_g2_distance, k1=20, k2=6, lambda_value=0.3)
-final_q_g33_dist = re_ranking(q_g3_distance, q_q_distance, g3_g3_distance, k1=20, k2=6, lambda_value=0.3)
-
-#final_q_g3_dist = np.concatenate((final_q_g31_dist, final_q_g32_dist, final_q_g33_dist), axis = 1)
+final_q_g_dist = re_ranking(q_g_distance, q_q_distance, g_g_distance, k1=20, k2=6, lambda_value=0.3)
 
 # Save to file
-final_q_g3_dist_dict = {'q_g3' : final_q_g33_dist}
-scipy.io.savemat('final_q_g3_dist.mat', final_q_g3_dist_dict)
-#del final_q_g3_dist
+final_q_g_dist_dict = {'final_q_g' : final_q_g_dist}
+scipy.io.savemat('final_q_g_dist.mat', final_q_g_dist_dict)
 
+print('finish.............')
+embed()
 
-
-# sum
-final_q_g1_dist = scipy.io.loadmat('final_q_g1_dist.mat')['q_g1']
-final_q_g2_dist = scipy.io.loadmat('final_q_g2_dist.mat')['q_g2']
-final_q_g3_dist = scipy.io.loadmat('final_q_g3_dist.mat')['q_g3']
-
-#final_q_g_dist = final_q_g1_dist + final_q_g2_dist + final_q_g3_dist
-
-# unpad last  col, make shape = 2900 * (40467-1)
-#final_q_g_dist = final_q_g_dist[:,:-1]
-
-# Save to file
-#final_q_g_dist_dict = {'q_g' : final_q_g_dist}
-#scipy.io.savemat('final_q_g_dist.mat', final_q_g_dist_dict)
-
-final_q_g_dist = np.concatenate((final_q_g1_dist, final_q_g2_dist, final_q_g3_dist), axis = 1)
-final_q_g_dist = final_q_g_dist[:,:-1]
-#final_q_g_dist = scipy.io.loadmat('final_q_g_dist.mat')['q_g']
+#final_q_g_dist = scipy.io.loadmat('final_q_g_dist.mat')['final_q_g']
 
 result_dict = {}
 

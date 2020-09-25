@@ -152,7 +152,7 @@ if multi:
 query_feature = query_feature.cuda()
 
 N = 13489
-gallery_feature = gallery_feature[:N,:]    # only  rerank  one part
+gallery_feature = gallery_feature[N:2*N,:]    # only  rerank  one part
 gallery_feature = gallery_feature.cuda() 
 
 #######################################################################

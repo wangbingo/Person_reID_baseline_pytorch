@@ -103,7 +103,7 @@ import argparse
 import scipy.io
 import torch
 # import numpy as np
-import os
+import os, sys
 from torchvision import datasets
 import matplotlib
 matplotlib.use('agg')
@@ -191,7 +191,7 @@ def tensor_mm(tensor_a, tensor_b):
 q_q_distance   = tensor_mm(query_feature, query_feature)
 
 # cal  final_q_g1_dist
-q_g1_distance    = tensor_mm(query_feature, gallery_feature_1)
+""" q_g1_distance    = tensor_mm(query_feature, gallery_feature_1)
 
 g1_g1_distance   = tensor_mm(gallery_feature_1, gallery_feature_1)
 g1_g2_distance   = tensor_mm(gallery_feature_1, gallery_feature_2)
@@ -207,8 +207,8 @@ final_q_g1_dist = np.concatenate((final_q_g11_dist, final_q_g12_dist, final_q_g1
 final_q_g1_dist_dict = {'q_g1' : final_q_g1_dist}
 scipy.io.savemat('final_q_g1_dist.mat', final_q_g1_dist_dict)
 del final_q_g1_dist
-del final_q_g1_dist_dict
-embed()
+del final_q_g1_dist_dict """
+
 
 # cal  final_q_g2_dist
 q_g2_distance    = tensor_mm(query_feature, gallery_feature_2)
@@ -227,7 +227,7 @@ final_q_g1_dist = np.concatenate((final_q_g21_dist, final_q_g22_dist, final_q_g2
 final_q_g2_dist_dict = {'q_g2' : final_q_g2_dist}
 scipy.io.savemat('final_q_g2_dist.mat', final_q_g2_dist_dict)
 #del final_q_g2_dist
-
+sys.exit(0)
 
 # cal  final_q_g3_dist
 q_g3_distance    = tensor_mm(query_feature, gallery_feature_3)

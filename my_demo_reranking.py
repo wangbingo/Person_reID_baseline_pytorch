@@ -221,10 +221,9 @@ final_q_g21_dist = re_ranking(q_g2_distance, q_q_distance, g2_g1_distance, k1=20
 final_q_g22_dist = re_ranking(q_g2_distance, q_q_distance, g2_g2_distance, k1=20, k2=6, lambda_value=0.3)
 final_q_g23_dist = re_ranking(q_g2_distance, q_q_distance, g2_g3_distance, k1=20, k2=6, lambda_value=0.3)
 
-final_q_g1_dist = np.concatenate((final_q_g21_dist, final_q_g22_dist, final_q_g23_dist), axis = 1)
+final_q_g2_dist = np.concatenate((final_q_g21_dist, final_q_g22_dist, final_q_g23_dist), axis = 1)
 
 # Save to file
-final_q_g2_dist_dict = {}
 final_q_g2_dist_dict = {'q_g2' : final_q_g2_dist}
 scipy.io.savemat('final_q_g2_dist.mat', final_q_g2_dist_dict)
 #del final_q_g2_dist

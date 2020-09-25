@@ -200,7 +200,7 @@ final_q_g_dist_dict = {'final_q_g' : final_q_g_dist}
 scipy.io.savemat('final_q_g_dist_2.mat', final_q_g_dist_dict)
 
 print('finish.............')
-embed()
+sys.exit()
 
 #final_q_g_dist = scipy.io.loadmat('final_q_g_dist.mat')['final_q_g']
 

@@ -150,8 +150,17 @@ if multi:
     mquery_feature = mquery_feature.cuda()
 
 query_feature = query_feature.cuda()
-gallery_feature = gallery_feature.cuda() 
+N = int(40466 / 3) + 1
+gallery_feature_1 = gallery_feature[0:N, :].cuda()    # 13500/block is ok
+gallery_feature_2 = gallery_feature[N:2*N, :].cuda()
 
+ 
+# padding one row to gf3, make its size = gf1 & gf2 = N
+gallery_feature_3 = gallery_feature[2*N:, :]     
+num_rows, num_cols  = list(gallery_feature_3.size())
+pad = torch.zeros([1, num_cols], dtype = torch.float)
+gallery_feature_3 = torch.cat((gallery_feature_3, pad), 0)
+gallery_feature_3 = gallery_feature_3.cuda()
 #######################################################################
 # sort the images
 def sort_img(qf, ql, qc, gf, gl, gc):
@@ -179,20 +188,53 @@ def tensor_mm(tensor_a, tensor_b):
     # index = index[0:2000]
     return dist_mat
 
-q_q_distance   = tensor_mm(query_feature, query_feature)
-q_q_dist_dict = {'q_q' : q_q_distance}
-scipy.io.savemat('q_q_dist.mat', q_q_dist_dict)
+""" q_q_distance   = tensor_mm(query_feature, query_feature)
 
-q_g_distance    = tensor_mm(query_feature, gallery_feature)
-q_g_dist_dict = {'q_g' : q_g_distance}
-scipy.io.savemat('q_g_dist.mat', q_g_dist_dict)
+# cal  final_q_g1_dist
+q_g1_distance    = tensor_mm(query_feature, gallery_feature_1)
 
-g_g_distance   = tensor_mm(gallery_feature, gallery_feature)
-g_g_dist_dict = {'g_g' : g_g_distance}
-scipy.io.savemat('g_g_dist.mat', g_g_dist_dict)
+g1_g1_distance   = tensor_mm(gallery_feature_1, gallery_feature_1)
+#g1_g2_distance   = tensor_mm(gallery_feature_1, gallery_feature_2)
+#g1_g3_distance   = tensor_mm(gallery_feature_1, gallery_feature_3)
 
-sys.exit()
+final_q_g11_dist = re_ranking(q_g1_distance, q_q_distance, g1_g1_distance, k1=20, k2=6, lambda_value=0.3)
+#final_q_g12_dist = re_ranking(q_g1_distance, q_q_distance, g1_g2_distance, k1=20, k2=6, lambda_value=0.3)
+#final_q_g13_dist = re_ranking(q_g1_distance, q_q_distance, g1_g3_distance, k1=20, k2=6, lambda_value=0.3)
 
+#final_q_g1_dist = np.concatenate((final_q_g11_dist, final_q_g12_dist, final_q_g13_dist), axis = 1)
+
+# Save to file
+final_q_g1_dist_dict = {'q_g1' : final_q_g11_dist}
+scipy.io.savemat('final_q_g1_dist.mat', final_q_g1_dist_dict)
+#del final_q_g1_dist
+#del final_q_g1_dist_dict
+
+
+# cal  final_q_g2_dist
+q_g2_distance    = tensor_mm(query_feature, gallery_feature_2)
+
+#g2_g1_distance   = tensor_mm(gallery_feature_2, gallery_feature_1)
+g2_g2_distance   = tensor_mm(gallery_feature_2, gallery_feature_2)
+#g2_g3_distance   = tensor_mm(gallery_feature_2, gallery_feature_3)
+
+#final_q_g21_dist = re_ranking(q_g2_distance, q_q_distance, g2_g1_distance, k1=20, k2=6, lambda_value=0.3)
+final_q_g22_dist = re_ranking(q_g2_distance, q_q_distance, g2_g2_distance, k1=20, k2=6, lambda_value=0.3)
+#final_q_g23_dist = re_ranking(q_g2_distance, q_q_distance, g2_g3_distance, k1=20, k2=6, lambda_value=0.3)
+
+#final_q_g2_dist = np.concatenate((final_q_g21_dist, final_q_g22_dist, final_q_g23_dist), axis = 1)
+
+# Save to file
+final_q_g2_dist_dict = {'q_g2' : final_q_g22_dist}
+scipy.io.savemat('final_q_g2_dist.mat', final_q_g2_dist_dict)
+#del final_q_g2_dist
+
+
+# cal  final_q_g3_dist
+q_g3_distance    = tensor_mm(query_feature, gallery_feature_3)
+
+#g3_g1_distance   = tensor_mm(gallery_feature_3, gallery_feature_1)
+#g3_g2_distance   = tensor_mm(gallery_feature_3, gallery_feature_2)
+g3_g3_distance   = tensor_mm(gallery_feature_3, gallery_feature_3)
 
 #final_q_g31_dist = re_ranking(q_g3_distance, q_q_distance, g3_g1_distance, k1=20, k2=6, lambda_value=0.3)
 #final_q_g32_dist = re_ranking(q_g3_distance, q_q_distance, g3_g2_distance, k1=20, k2=6, lambda_value=0.3)
@@ -203,7 +245,7 @@ final_q_g33_dist = re_ranking(q_g3_distance, q_q_distance, g3_g3_distance, k1=20
 # Save to file
 final_q_g3_dist_dict = {'q_g3' : final_q_g33_dist}
 scipy.io.savemat('final_q_g3_dist.mat', final_q_g3_dist_dict)
-#del final_q_g3_dist
+#del final_q_g3_dist """
 
 
 

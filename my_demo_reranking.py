@@ -132,7 +132,7 @@ def imshow(path, title=None):
     plt.pause(0.001)  # pause a bit so that plots are updated
 
 ######################################################################
-result = scipy.io.loadmat('pytorch_result.mat')
+""" result = scipy.io.loadmat('pytorch_result.mat')
 query_feature = torch.FloatTensor(result['query_f'])
 query_cam = result['query_cam'][0]
 query_label = result['query_label'][0]
@@ -200,7 +200,7 @@ final_q_g_dist = re_ranking(q_g_distance, q_q_distance, g_g_distance, k1=20, k2=
 final_q_g_dist_dict = {'final_q_g' : final_q_g_dist}
 scipy.io.savemat('final_q_g_dist_3.mat', final_q_g_dist_dict)
 
-sys.exit()
+sys.exit() """
 
 final_q_g_dist_1 = scipy.io.loadmat('final_q_g_dist_1.mat')['final_q_g']
 final_q_g_dist_2 = scipy.io.loadmat('final_q_g_dist_2.mat')['final_q_g']
@@ -208,7 +208,6 @@ final_q_g_dist_3 = scipy.io.loadmat('final_q_g_dist_3.mat')['final_q_g']
 
 final_q_g_dist = np.concatenate((final_q_g_dist_1, final_q_g_dist_2, final_q_g_dist_3), axis = 1)
 
-embed()
 result_dict = {}
 
 q_index = opts.query_index  # query total number: 2900

@@ -206,6 +206,7 @@ final_q_g_dist_3 = scipy.io.loadmat('final_q_g_dist_3.mat')['final_q_g']
 
 final_q_g_dist = np.concatenate((final_q_g_dist_1, final_q_g_dist_2, final_q_g_dist_3), axis = 1)
 
+embed()
 result_dict = {}
 
 q_index = opts.query_index  # query total number: 2900

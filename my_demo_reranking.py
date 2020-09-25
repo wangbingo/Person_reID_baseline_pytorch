@@ -250,7 +250,7 @@ scipy.io.savemat('final_q_g3_dist.mat', final_q_g3_dist_dict)
 
 
 # sum
-final_q_g1_dist = scipy.io.loadmat('final_q_g1_dist.mat')['q_g1']
+""" final_q_g1_dist = scipy.io.loadmat('final_q_g1_dist.mat')['q_g1']
 final_q_g2_dist = scipy.io.loadmat('final_q_g2_dist.mat')['q_g2']
 final_q_g3_dist = scipy.io.loadmat('final_q_g3_dist.mat')['q_g3']
 
@@ -261,10 +261,9 @@ final_q_g_dist = final_q_g_dist[:,:-1]
 
 # Save to file
 final_q_g_dist_dict = {'q_g' : final_q_g_dist}
-scipy.io.savemat('final_q_g_dist.mat', final_q_g_dist_dict)
+scipy.io.savemat('final_q_g_dist.mat', final_q_g_dist_dict) """
 
-sys.exit(0)
-
+final_q_g3_dist = scipy.io.loadmat('final_q_g_dist.mat')['q_g']
 
 result_dict = {}
 
